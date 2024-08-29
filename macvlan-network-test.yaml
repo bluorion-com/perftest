@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rdma-test
+  namespace: user-ns
+spec:
+  selector:
+    matchLabels:
+      app: rdma
+  replicas: 2
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: nvidia-network-operator/macvlannetwork-1
+      labels:
+        app: rdma
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - rdma
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: rdma-test
+          image: gueraf/perftest:latest
+          securityContext:
+            capabilities:
+              add: ["IPC_LOCK"]
+          resources:
+            limits:
+              rdma/rdma_shared_device_a: 1
+            requests:
+              rdma/rdma_shared_device_a: 1
+          command:
+            - sh
+            - -c
+            - |
+              ls -l /dev/infiniband /sys/class/infiniband /sys/class/net
+              sleep 1000000
