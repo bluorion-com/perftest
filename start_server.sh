@@ -1,4 +1,4 @@
-hostname -i
+ip a show net1 | grep -oP "inet [^/]+" | grep -oP "\d.*"
 
 while :
 do
