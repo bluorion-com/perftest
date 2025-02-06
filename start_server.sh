@@ -1,4 +1,4 @@
-ip a show net1 | grep -oP "inet [^/]+" | grep -oP "\d.*"
+ip a show eth0 | grep -oP "inet [^/]+" | grep -oP "\d.*"
 
 while :
 do
