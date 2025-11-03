@@ -38,6 +38,7 @@ spec:
           resources:
             limits:
               rdma/rdma_shared_device_a: 1
+              nvidia.com/gpu: 1
             requests:
               rdma/rdma_shared_device_a: 1
           command:

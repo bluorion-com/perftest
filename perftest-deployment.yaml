@@ -20,3 +20,6 @@ spec:
       - name: perftest
         image: gueraf/perftest
         command: ["/bin/sh", "-c", "sleep infinity"]
+        resources:
+          limits:
+            nvidia.com/gpu: 1
