@@ -10,8 +10,8 @@ spec:
   replicas: 2
   template:
     metadata:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: nvidia-network-operator/macvlannetwork-1
+      # annotations:
+      #   k8s.v1.cni.cncf.io/networks: nvidia-network-operator/macvlannetwork-1
       labels:
         app: rdma
     spec:
@@ -20,7 +20,9 @@ spec:
         operator: "Exists"
         effect: "NoSchedule"
       affinity:
-        podAntiAffinity:
+        # To switch between same/different machines, comment/uncomment podAffinity/podAntiAffinity
+        # podAntiAffinity:
+        podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
@@ -38,6 +40,7 @@ spec:
           resources:
             limits:
               #rdma/rdma_shared_device_a: 1
+              nvidia.com/gpu: 1
             requests:
               #rdma/rdma_shared_device_a: 1
               nvidia.com/gpu: 1

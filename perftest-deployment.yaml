@@ -16,10 +16,24 @@ spec:
       - key: "nvidia.com/gpu"
         operator: "Exists"
         effect: "NoSchedule"
+      affinity:
+        # To switch between same/different machines, comment/uncomment podAffinity/podAntiAffinity
+        # podAntiAffinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - perftest
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: perftest
         image: gueraf/perftest
         command: ["/bin/sh", "-c", "sleep infinity"]
         resources:
+          limits:
+            nvidia.com/gpu: 1
           requests:
             nvidia.com/gpu: 1
