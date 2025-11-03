@@ -42,5 +42,4 @@ spec:
             - |
               ls -l /dev/infiniband /sys/class/infiniband /sys/class/net
               sleep 1000000
-      imagePullSecrets:
-        - name: regcred # read only; see config.json.
+
