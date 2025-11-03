@@ -12,6 +12,10 @@ spec:
       labels:
         app: perftest
     spec:
+      tolerations:
+      - key: "nvidia.com/gpu"
+        operator: "Exists"
+        effect: "NoSchedule"
       containers:
       - name: perftest
         image: gueraf/perftest
