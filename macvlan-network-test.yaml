@@ -37,10 +37,10 @@ spec:
               add: ["IPC_LOCK"]
           resources:
             limits:
-              rdma/rdma_shared_device_a: 1
-              nvidia.com/gpu: 1
+              #rdma/rdma_shared_device_a: 1
             requests:
-              rdma/rdma_shared_device_a: 1
+              #rdma/rdma_shared_device_a: 1
+              nvidia.com/gpu: 1
           command:
             - sh
             - -c
